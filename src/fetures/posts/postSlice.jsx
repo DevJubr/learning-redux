@@ -18,7 +18,10 @@ const postSlice = createSlice({
   initialState,
   reducers: {
     addPost: (state, { payload }) => {
-      state.push(payload);
+      state.push({
+        id: 34,
+        ...payload,
+      });
     },
   },
 });
