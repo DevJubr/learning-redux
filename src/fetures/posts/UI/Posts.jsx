@@ -1,4 +1,4 @@
-import React from "react";
+import PostForm from "./PostForm";
 import { useSelector } from "react-redux";
 import { getAllPosts } from "../postSlice";
 
@@ -21,7 +21,8 @@ const Posts = () => {
   };
 
   return (
-    <div>
+    <div className="postC">
+      <PostForm />
       <RenderPost />
     </div>
   );
