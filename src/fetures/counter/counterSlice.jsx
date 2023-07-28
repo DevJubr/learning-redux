@@ -14,8 +14,14 @@ export const countSlice = createSlice({
     dicriment: (state) => {
       state.count -= 1;
     },
+    reset: (state) => {
+      state.count = 0;
+    },
+    incrimentByn: (state, action) => {
+      state.count += +action.payload;
+    },
   },
 });
 
-export const { incriment, dicriment } = countSlice.actions;
+export const { incriment, dicriment, incrimentByn, reset } = countSlice.actions;
 export default countSlice.reducer;
