@@ -14,7 +14,7 @@ const Posts = () => {
           return (
             <div className="post" key={post.id}>
               <h4>{post.title}</h4>
-              <span>{author.name}</span>
+              <span>{author ? author.name : "anonimas"}</span>
               <p>{post.dec}</p>
             </div>
           );

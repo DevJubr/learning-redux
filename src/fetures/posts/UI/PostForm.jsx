@@ -24,6 +24,7 @@ const PostForm = () => {
     e.preventDefault();
     dispatch(addPost(State, userId));
     setState(init);
+    setuserId("");
   };
   const hendelAoutherCngd = (e) => {
     setuserId(e.target.value);
@@ -54,7 +55,7 @@ const PostForm = () => {
         ))}
       </select>
 
-      <button onClick={hendelSubmit} type="submit">
+      <button onClick={hendelSubmit} type="submit" disabled={!+userId}>
         add post
       </button>
     </form>
