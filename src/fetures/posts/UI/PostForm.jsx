@@ -22,7 +22,7 @@ const PostForm = () => {
   };
   const hendelSubmit = (e) => {
     e.preventDefault();
-    dispatch(addPost(State));
+    dispatch(addPost(State, userId));
     setState(init);
   };
   const hendelAoutherCngd = (e) => {

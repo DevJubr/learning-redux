@@ -21,10 +21,11 @@ const postSlice = createSlice({
       reducer: (state, { payload }) => {
         state.push(payload);
       },
-      prepare: (data) => {
+      prepare: (data, userid) => {
         return {
           payload: {
             id: nanoid(),
+            userid,
             ...data,
           },
         };
