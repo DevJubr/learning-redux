@@ -22,6 +22,7 @@ const Posts = () => {
             <div className="post" key={post.id}>
               <h4>{post.title}</h4>
               <span>{author ? author.name : "anonimas"}</span>
+              <span>{daaata}</span>
               <p>{post.dec}</p>
             </div>
           );
