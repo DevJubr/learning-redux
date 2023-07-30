@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addPost } from "../postSlice";
 const init = {
   title: "",
@@ -7,9 +7,11 @@ const init = {
 };
 const PostForm = () => {
   const dispatch = useDispatch();
+  const users = useSelector((state) => state.users);
   const [State, setState] = useState({
     ...init,
   });
+  const [userId, setuserId] = useState("");
 
   const henddelChenge = (ev) => {
     const { name, value } = ev.target;
@@ -22,6 +24,9 @@ const PostForm = () => {
     e.preventDefault();
     dispatch(addPost(State));
     setState(init);
+  };
+  const hendelAoutherCngd = (e) => {
+    setuserId(e.target.value);
   };
 
   return (
@@ -41,6 +46,14 @@ const PostForm = () => {
         placeholder="enter ur des"
         onChange={(e) => henddelChenge(e)}
       ></textarea>
+
+      <select name="user" value={userId}>
+        <option value="">select aouther</option>
+        {users.map((aut) => (
+          <option value={aut.id}>{aut.name}</option>
+        ))}
+      </select>
+
       <button onClick={hendelSubmit} type="submit">
         add post
       </button>
