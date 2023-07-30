@@ -21,6 +21,7 @@ const PostForm = () => {
   const hendelSubmit = (e) => {
     e.preventDefault();
     dispatch(addPost(State));
+    setState(init);
   };
 
   return (
