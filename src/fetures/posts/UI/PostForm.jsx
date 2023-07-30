@@ -47,7 +47,7 @@ const PostForm = () => {
         onChange={(e) => henddelChenge(e)}
       ></textarea>
 
-      <select name="user" value={userId}>
+      <select name="user" value={userId} onChange={hendelAoutherCngd}>
         <option value="">select aouther</option>
         {users.map((aut) => (
           <option value={aut.id}>{aut.name}</option>
