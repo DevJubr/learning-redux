@@ -3,16 +3,27 @@ import { sub } from "date-fns";
 
 const initialState = [
   {
-    id: 1,
+    id: nanoid(),
     title: "jwdhhehehuehue",
     date: sub(new Date(), { minutes: 10 }).toISOString(),
     dec: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod exercitationem possimus reiciendis maiores soluta, nemo natus explicabo neque dolor quibusdam eligendi eum porro dignissimos sequi accusamus est error, iure ut.",
+    reacts: {
+      like: 0,
+      love: 0,
+      wow: 0,
+    },
   },
+
   {
-    id: 12,
+    id: nanoid(),
     title: "jwdhhehehuehue",
     date: sub(new Date(), { minutes: 10 }).toISOString(),
     dec: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod exercitationem possimus reiciendis maiores soluta, nemo natus explicabo neque dolor quibusdam eligendi eum porro dignissimos sequi accusamus est error, iure ut.",
+    reacts: {
+      like: 0,
+      love: 0,
+      wow: 0,
+    },
   },
 ];
 
@@ -31,13 +42,28 @@ const postSlice = createSlice({
             userid,
             date: new Date().toISOString(),
             ...data,
+            reacts: {
+              like: 0,
+              love: 0,
+              wow: 0,
+            },
           },
         };
+      },
+    },
+    addReactions: {
+      reducer: (state, action) => {
+        const { postId, react } = action.payload;
+        console.log(state, postId, react);
+        const giveReactOnThis = state.find((post) => post.id === postId);
+        if (giveReactOnThis) {
+          giveReactOnThis.reacts[react]++;
+        }
       },
     },
   },
 });
 
-export const { addPost } = postSlice.actions;
+export const { addPost, addReactions } = postSlice.actions;
 export const getAllPosts = (state) => state.posts;
 export default postSlice.reducer;

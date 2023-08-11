@@ -50,8 +50,10 @@ const PostForm = () => {
 
       <select name="user" value={userId} onChange={hendelAoutherCngd}>
         <option value="">select aouther</option>
-        {users.map((aut) => (
-          <option value={aut.id}>{aut.name}</option>
+        {users.map((aut, ind) => (
+          <option key={ind} value={aut.id}>
+            {aut.name}
+          </option>
         ))}
       </select>
 
