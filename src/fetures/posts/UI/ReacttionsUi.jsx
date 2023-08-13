@@ -16,7 +16,7 @@ const ReacttionsUi = ({ post }) => {
       {forRender.map(([name, value]) => {
         return (
           <button
-            key={post.id}
+            key={post.keyy}
             name={name}
             onClick={() => {
               dispatch(addReactions({ postId: post.id, react: name }));

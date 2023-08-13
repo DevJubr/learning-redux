@@ -1,12 +1,21 @@
 import PostForm from "./PostForm";
-import { useSelector } from "react-redux";
-import { getAllPosts } from "../postSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { fatechPost, getAllPosts, getstatus } from "../postSlice";
 import { formatDistanceToNow, parseISO } from "date-fns";
 import ReacttionsUi from "./ReacttionsUi";
+import { useEffect } from "react";
 
 const Posts = () => {
   const posts = useSelector(getAllPosts);
+  const ststus = useSelector(getstatus);
+  const dispatch = useDispatch();
   const users = useSelector((state) => state.users);
+
+  useEffect(() => {
+    if (ststus === "idle") {
+      dispatch(fatechPost());
+    }
+  }, []);
 
   const RenderPost = () => {
     const renderForPost = posts
@@ -24,11 +33,11 @@ const Posts = () => {
             daaata = tmpd;
           }
           return (
-            <div className="post" key={post.id}>
+            <div className="post" key={post.keyy}>
               <h4>{post.title}</h4>
               <span>{author ? author.name : "anonimas"}</span>
               <span>{daaata}</span>
-              <p>{post.dec}</p>
+              <p>{post.body}</p>
 
               <ReacttionsUi post={post} />
             </div>

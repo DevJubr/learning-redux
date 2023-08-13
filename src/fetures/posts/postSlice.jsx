@@ -6,21 +6,9 @@ const initialState = {
   posts: [],
   status: "idle", //'idle' | 'loading' | 'succeeded' | 'failed'
   error: null,
-
-  // {
-  //   id: nanoid(),
-  //   title: "jwdhhehehuehue",
-  //   date: sub(new Date(), { minutes: 10 }).toISOString(),
-  //   dec: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod exercitationem possimus reiciendis maiores soluta, nemo natus explicabo neque dolor quibusdam eligendi eum porro dignissimos sequi accusamus est error, iure ut.",
-  //   reacts: {
-  //     like: 0,
-  //     love: 0,
-  //     wow: 0,
-  //   },
-  // },
 };
 
-const fatechPost = createAsyncThunk("post/fatechPost", async () => {
+export const fatechPost = createAsyncThunk("post/fatechPost", async () => {
   const response = await axios.get(
     "https://jsonplaceholder.typicode.com/posts"
   );
@@ -28,12 +16,12 @@ const fatechPost = createAsyncThunk("post/fatechPost", async () => {
 });
 
 const postSlice = createSlice({
-  name: "post",
+  name: "posts",
   initialState,
   reducers: {
     addPost: {
       reducer: (state, { payload }) => {
-        state.push(payload);
+        state.posts.push(payload);
       },
       prepare: (data, userid) => {
         return {
@@ -55,18 +43,18 @@ const postSlice = createSlice({
       reducer: (state, action) => {
         const { postId, react } = action.payload;
         console.log(state, postId, react);
-        const giveReactOnThis = state.find((post) => post.id === postId);
+        const giveReactOnThis = state.posts.find((post) => post.id === postId);
         if (giveReactOnThis) {
           giveReactOnThis.reacts[react]++;
         }
       },
     },
   },
-  extraReducers(bullder) {
-    bullder.addCase(fatechPost.pending, (state, _action) => {
+  extraReducers(builder) {
+    builder.addCase(fatechPost.pending, (state, _action) => {
       state.status = "loading";
     });
-    bullder.addCase(fatechPost.fulfilled, (state, action) => {
+    builder.addCase(fatechPost.fulfilled, (state, action) => {
       state.status = "success";
 
       let min = 1;
@@ -78,16 +66,21 @@ const postSlice = createSlice({
           love: 0,
           wow: 0,
         };
+        item.keyy = nanoid();
+        return item;
       });
 
       state.posts = state.posts.concat(loadedPost);
+      console.log("first time", state.posts);
     });
-    bullder.addCase(fatechPost.rejected, (state, action) => {
+    builder.addCase(fatechPost.rejected, (state, action) => {
       state.error = action.error.message;
     });
   },
 });
-
-export const { addPost, addReactions } = postSlice.actions;
 export const getAllPosts = (state) => state.posts.posts;
+export const getstatus = (state) => state.posts.status;
+export const getError = (state) => state.posts.error;
+export const { addPost, addReactions } = postSlice.actions;
+
 export default postSlice.reducer;
