@@ -16,43 +16,50 @@ const Posts = () => {
       dispatch(fatechPost());
     }
   }, []);
+  if (ststus === "success") {
+    const RenderPost = () => {
+      const renderForPost = posts
+        .slice()
+        .sort((a, b) => b.date.localeCompare(a.date));
 
-  const RenderPost = () => {
-    const renderForPost = posts
-      .slice()
-      .sort((a, b) => b.date.localeCompare(a.date));
+      return (
+        <>
+          {renderForPost.map((post) => {
+            const author = users.find((elm) => elm.id == post.id);
+            let daaata = "";
+            if (post.date) {
+              const ioD = parseISO(post.date);
+              const tmpd = formatDistanceToNow(ioD);
+              daaata = tmpd;
+            }
+            return (
+              <div className="post" key={post.keyy}>
+                <h4>{post.title}</h4>
+                <span>{author ? author.name : "anonimas"}</span>
+                <span>{daaata}</span>
+                <p>{post.body}</p>
+
+                <ReacttionsUi post={post} />
+              </div>
+            );
+          })}
+        </>
+      );
+    };
 
     return (
+      <div className="postC">
+        <PostForm />
+        <RenderPost />
+      </div>
+    );
+  } else {
+    return (
       <>
-        {renderForPost.map((post) => {
-          const author = users.find((elm) => elm.id == post.userid);
-          let daaata = "";
-          if (post.date) {
-            const ioD = parseISO(post.date);
-            const tmpd = formatDistanceToNow(ioD);
-            daaata = tmpd;
-          }
-          return (
-            <div className="post" key={post.keyy}>
-              <h4>{post.title}</h4>
-              <span>{author ? author.name : "anonimas"}</span>
-              <span>{daaata}</span>
-              <p>{post.body}</p>
-
-              <ReacttionsUi post={post} />
-            </div>
-          );
-        })}
+        <h1>loading.............</h1>
       </>
     );
-  };
-
-  return (
-    <div className="postC">
-      <PostForm />
-      <RenderPost />
-    </div>
-  );
+  }
 };
 
 export default Posts;

@@ -71,7 +71,6 @@ const postSlice = createSlice({
       });
 
       state.posts = state.posts.concat(loadedPost);
-      console.log("first time", state.posts);
     });
     builder.addCase(fatechPost.rejected, (state, action) => {
       state.error = action.error.message;
