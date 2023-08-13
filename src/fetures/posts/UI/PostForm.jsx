@@ -24,6 +24,7 @@ const PostForm = () => {
     e.preventDefault();
     dispatch(addPost(State, userId));
     setState(init);
+    setuserId("");
   };
   const hendelAoutherCngd = (e) => {
     setuserId(e.target.value);
@@ -49,12 +50,14 @@ const PostForm = () => {
 
       <select name="user" value={userId} onChange={hendelAoutherCngd}>
         <option value="">select aouther</option>
-        {users.map((aut) => (
-          <option value={aut.id}>{aut.name}</option>
+        {users.map((aut, ind) => (
+          <option key={ind} value={aut.id}>
+            {aut.name}
+          </option>
         ))}
       </select>
 
-      <button onClick={hendelSubmit} type="submit">
+      <button onClick={hendelSubmit} type="submit" disabled={!+userId}>
         add post
       </button>
     </form>
