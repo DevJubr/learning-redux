@@ -1,31 +1,31 @@
-import { createSlice, nanoid } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, nanoid } from "@reduxjs/toolkit";
+import axios from "axios";
 import { sub } from "date-fns";
 
-const initialState = [
-  {
-    id: nanoid(),
-    title: "jwdhhehehuehue",
-    date: sub(new Date(), { minutes: 10 }).toISOString(),
-    dec: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod exercitationem possimus reiciendis maiores soluta, nemo natus explicabo neque dolor quibusdam eligendi eum porro dignissimos sequi accusamus est error, iure ut.",
-    reacts: {
-      like: 0,
-      love: 0,
-      wow: 0,
-    },
-  },
+const initialState = {
+  posts: [],
+  status: "idle", //'idle' | 'loading' | 'succeeded' | 'failed'
+  error: null,
 
-  {
-    id: nanoid(),
-    title: "jwdhhehehuehue",
-    date: sub(new Date(), { minutes: 10 }).toISOString(),
-    dec: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod exercitationem possimus reiciendis maiores soluta, nemo natus explicabo neque dolor quibusdam eligendi eum porro dignissimos sequi accusamus est error, iure ut.",
-    reacts: {
-      like: 0,
-      love: 0,
-      wow: 0,
-    },
-  },
-];
+  // {
+  //   id: nanoid(),
+  //   title: "jwdhhehehuehue",
+  //   date: sub(new Date(), { minutes: 10 }).toISOString(),
+  //   dec: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod exercitationem possimus reiciendis maiores soluta, nemo natus explicabo neque dolor quibusdam eligendi eum porro dignissimos sequi accusamus est error, iure ut.",
+  //   reacts: {
+  //     like: 0,
+  //     love: 0,
+  //     wow: 0,
+  //   },
+  // },
+};
+
+const fatechPost = createAsyncThunk("post/fatechPost", async () => {
+  const response = await axios.get(
+    "https://jsonplaceholder.typicode.com/posts"
+  );
+  return response.data;
+});
 
 const postSlice = createSlice({
   name: "post",
@@ -62,8 +62,13 @@ const postSlice = createSlice({
       },
     },
   },
+  extraReducers(bullder) {
+    bullder.addCase(fatechPost.pending, (state, _action) => {
+      state.status = "loading";
+    });
+  },
 });
 
 export const { addPost, addReactions } = postSlice.actions;
-export const getAllPosts = (state) => state.posts;
+export const getAllPosts = (state) => state.posts.posts;
 export default postSlice.reducer;
