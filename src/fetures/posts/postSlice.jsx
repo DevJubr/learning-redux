@@ -82,6 +82,9 @@ const postSlice = createSlice({
 
       state.posts = state.posts.concat(loadedPost);
     });
+    bullder.addCase(fatechPost.rejected, (state, action) => {
+      state.error = action.error.message;
+    });
   },
 });
 
