@@ -34,6 +34,14 @@ const Posts = () => {
             }
             return (
               <div className="post" key={post.keyy}>
+                <button>
+                  <h2>id: {post.id}</h2>
+                </button>
+                <button>
+                  <h2>Userid: {post.userId}</h2>
+                </button>
+                <br />
+                <br />
                 <h4>{post.title}</h4>
                 <span>{author ? author.name : "anonimas"}</span>
                 <span>{daaata}</span>
