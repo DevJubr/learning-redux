@@ -66,6 +66,22 @@ const postSlice = createSlice({
     bullder.addCase(fatechPost.pending, (state, _action) => {
       state.status = "loading";
     });
+    bullder.addCase(fatechPost.fulfilled, (state, action) => {
+      state.status = "success";
+
+      let min = 1;
+      console.log("payload,", action.payload);
+      const loadedPost = action.payload.map((item) => {
+        item.date = sub(new Date(), { minutes: min++ }).toISOString();
+        item.reacts = {
+          like: 0,
+          love: 0,
+          wow: 0,
+        };
+      });
+
+      state.posts = state.posts.concat(loadedPost);
+    });
   },
 });
 
