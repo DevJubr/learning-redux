@@ -12,7 +12,11 @@ const userSlice = createSlice({
   name: "users",
   initialState,
   reducers: {},
-  extraReducers(builder) {},
+  extraReducers(builder) {
+    builder.addCase(fetChUser.fulfilled, (state, action) => {
+      return action.payload;
+    });
+  },
 });
 
 export default userSlice.reducer;
