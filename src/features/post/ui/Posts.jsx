@@ -13,7 +13,17 @@ const Posts = () => {
     }
   }, [Status]);
 
-  return <div>Posts</div>;
+  return (
+    <>
+      {data.map((item) => (
+        <div key={item.id}>
+          <h3>{item.title}</h3>
+          <p>{item.body}</p>
+          <span> {item.date} time age</span>
+        </div>
+      ))}
+    </>
+  );
 };
 
 export default Posts;
