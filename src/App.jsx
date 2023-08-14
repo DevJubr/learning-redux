@@ -1,10 +1,5 @@
-import Posts from "./fetures/posts/UI/Posts";
 const App = () => {
-  return (
-    <div>
-      <Posts />
-    </div>
-  );
+  return <h1>hi</h1>;
 };
 
 export default App;
