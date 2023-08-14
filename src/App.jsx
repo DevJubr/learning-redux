@@ -1,5 +1,11 @@
+import Posts from "./features/post/ui/Posts";
+
 const App = () => {
-  return <h1>hi</h1>;
+  return (
+    <>
+      <Posts />
+    </>
+  );
 };
 
 export default App;

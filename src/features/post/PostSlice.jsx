@@ -31,9 +31,12 @@ const postSlice = createSlice({
       });
       state.posts = modifiedPost;
     });
+    builder.addCase(fetchPost.rejected, (state, action) => {
+      state.error = action.error.message;
+    });
   },
 });
 // getter func
-export const getPosts = (state) => state.posts;
-export const getStatus = (state) => state.status;
+export const getPosts = (state) => state.post.posts;
+export const getStatus = (state) => state.post.status;
 export default postSlice.reducer;
