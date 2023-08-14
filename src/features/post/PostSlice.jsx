@@ -33,5 +33,7 @@ const postSlice = createSlice({
     });
   },
 });
-
+// getter func
+export const getPosts = (state) => state.posts;
+export const getStatus = (state) => state.status;
 export default postSlice.reducer;
