@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { fetchPost, getPosts, getStatus } from "../PostSlice";
 import { useEffect } from "react";
+import PostItem from "./PostItem";
 
 const Posts = () => {
   const dispatch = useDispatch();
@@ -15,13 +16,11 @@ const Posts = () => {
 
   return (
     <>
-      {data.map((item) => (
-        <div key={item.id}>
-          <h3>{item.title}</h3>
-          <p>{item.body}</p>
-          <span> {item.date} time age</span>
-        </div>
-      ))}
+      {Status === "loading" ? (
+        <h1>loading</h1>
+      ) : (
+        data?.map((item) => <PostItem item={item} />)
+      )}
     </>
   );
 };
