@@ -8,7 +8,6 @@ const Posts = () => {
   const dispatch = useDispatch();
   const data = useSelector(getPosts);
   const Status = useSelector(getStatus);
-  console.log(Status);
   useEffect(() => {
     if (Status === "idle") {
       dispatch(fetchPost());

@@ -1,12 +1,15 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addPost } from "../PostSlice";
 
 const PostForm = () => {
-  const [Info, setInfo] = useState({ title: "", body: "" });
+  const [Info, setInfo] = useState({ title: "", body: "", author: "" });
   const dispatch = useDispatch();
+  const users = useSelector((state) => state.users);
+
   const hendelCng = (e) => {
     const { name, value } = e.target;
+    console.log(name);
     if (value) {
       setInfo((prev) => ({
         ...prev,
@@ -35,6 +38,16 @@ const PostForm = () => {
         onChange={hendelCng}
         value={Info.body}
       />
+      <select name="author" onChange={hendelCng}>
+        <option value="">none</option>
+        {users?.map((ath) => {
+          return (
+            <option key={ath.id} value={ath.id}>
+              {ath.name}
+            </option>
+          );
+        })}
+      </select>
       <button type="submit">post</button>
     </form>
   );

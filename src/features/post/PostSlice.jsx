@@ -21,12 +21,13 @@ const postSlice = createSlice({
       reducer(state, action) {
         state.posts.push(action.payload);
       },
-      prepare({ title, body }) {
-        console.log(title, body);
+      prepare({ title, body, author }) {
+        // console.log(title, body);
         return {
           payload: {
             title,
             body,
+            userId: +author,
             id: nanoid(),
             date: sub(new Date(), { minutes: 1 }).toISOString(),
           },
@@ -44,9 +45,14 @@ const postSlice = createSlice({
       const modifiedPost = action.payload.map((post) => {
         post.date = sub(new Date(), { minutes: 1 }).toISOString();
         post.id = nanoid();
+        post.reacts = {
+          like: 0,
+          love: 0,
+          wow: 0,
+        };
         return post;
       });
-      state.posts = modifiedPost;
+      state.posts = [...modifiedPost];
     });
     builder.addCase(fetchPost.rejected, (state, action) => {
       state.error = action.error.message;
