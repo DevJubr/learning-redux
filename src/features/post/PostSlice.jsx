@@ -28,10 +28,22 @@ const postSlice = createSlice({
             title,
             body,
             userId: +author,
+            reacts: {
+              like: 0,
+              love: 0,
+              wow: 0,
+            },
             id: nanoid(),
             date: sub(new Date(), { minutes: 1 }).toISOString(),
           },
         };
+      },
+    },
+    addReact: {
+      reducer(state, { payload }) {
+        const { key, postId } = payload;
+        const terorist = state.posts.find((post) => post.id === postId);
+        terorist.reacts[key]++;
       },
     },
   },
@@ -63,5 +75,5 @@ const postSlice = createSlice({
 export const getPosts = (state) => state.post.posts;
 export const getStatus = (state) => state.post.status;
 
-export const { addPost } = postSlice.actions;
+export const { addPost, addReact } = postSlice.actions;
 export default postSlice.reducer;
