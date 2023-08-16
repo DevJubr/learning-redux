@@ -16,7 +16,23 @@ const initialState = {
 const postSlice = createSlice({
   name: "posts",
   initialState,
-  reducers: {},
+  reducers: {
+    addPost: {
+      reducer(state, action) {
+        state.posts.push(action.payload);
+      },
+      prepare(title, body) {
+        return {
+          payload: {
+            title,
+            body,
+            id: nanoid(),
+            date: sub(new Date(), { minutes: 1 }).toISOString(),
+          },
+        };
+      },
+    },
+  },
   extraReducers(builder) {
     builder.addCase(fetchPost.pending, (state, action) => {
       state.status = "loading";
@@ -39,4 +55,6 @@ const postSlice = createSlice({
 // getter func
 export const getPosts = (state) => state.post.posts;
 export const getStatus = (state) => state.post.status;
+
+export const { addPost } = postSlice.actions;
 export default postSlice.reducer;
