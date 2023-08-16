@@ -23,7 +23,7 @@ const Posts = () => {
         <>
           <PostForm />
           {data?.map((item) => (
-            <PostItem item={item} />
+            <PostItem key={item.id} item={item} />
           ))}
         </>
       )}
