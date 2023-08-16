@@ -25,7 +25,7 @@ const Posts = () => {
           {data?.map((item) => (
             <>
               <PostItem key={item.id} item={item} />
-              <EmojisBtns />
+              <EmojisBtns post={item} />
             </>
           ))}
         </>
