@@ -21,16 +21,29 @@ const postSlice = createSlice({
       reducer(state, action) {
         state.posts.push(action.payload);
       },
-      prepare({ title, body }) {
-        console.log(title, body);
+      prepare({ title, body, author }) {
+        // console.log(title, body);
         return {
           payload: {
             title,
             body,
+            userId: +author,
+            reacts: {
+              like: 0,
+              love: 0,
+              wow: 0,
+            },
             id: nanoid(),
             date: sub(new Date(), { minutes: 1 }).toISOString(),
           },
         };
+      },
+    },
+    addReact: {
+      reducer(state, { payload }) {
+        const { key, postId } = payload;
+        const terorist = state.posts.find((post) => post.id === postId);
+        terorist.reacts[key]++;
       },
     },
   },
@@ -44,9 +57,14 @@ const postSlice = createSlice({
       const modifiedPost = action.payload.map((post) => {
         post.date = sub(new Date(), { minutes: 1 }).toISOString();
         post.id = nanoid();
+        post.reacts = {
+          like: 0,
+          love: 0,
+          wow: 0,
+        };
         return post;
       });
-      state.posts = modifiedPost;
+      state.posts = [...modifiedPost];
     });
     builder.addCase(fetchPost.rejected, (state, action) => {
       state.error = action.error.message;
@@ -57,5 +75,5 @@ const postSlice = createSlice({
 export const getPosts = (state) => state.post.posts;
 export const getStatus = (state) => state.post.status;
 
-export const { addPost } = postSlice.actions;
+export const { addPost, addReact } = postSlice.actions;
 export default postSlice.reducer;

@@ -3,12 +3,12 @@ import { fetchPost, getPosts, getStatus } from "../PostSlice";
 import { useEffect } from "react";
 import PostItem from "./PostItem";
 import PostForm from "./PostForm";
+import EmojisBtns from "./EmojisBtns";
 
 const Posts = () => {
   const dispatch = useDispatch();
   const data = useSelector(getPosts);
   const Status = useSelector(getStatus);
-  console.log(Status);
   useEffect(() => {
     if (Status === "idle") {
       dispatch(fetchPost());
@@ -23,7 +23,10 @@ const Posts = () => {
         <>
           <PostForm />
           {data?.map((item) => (
-            <PostItem key={item.id} item={item} />
+            <>
+              <PostItem key={item.id} item={item} />
+              <EmojisBtns post={item} />
+            </>
           ))}
         </>
       )}
