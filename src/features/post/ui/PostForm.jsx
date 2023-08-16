@@ -17,7 +17,7 @@ const PostForm = () => {
 
   const hendelSubmit = (e) => {
     e.preventDefault();
-    dispatch(addPost(Info));
+    dispatch(addPost({ ...Info }));
   };
   return (
     <form onSubmit={hendelSubmit}>

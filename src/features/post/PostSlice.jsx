@@ -21,7 +21,8 @@ const postSlice = createSlice({
       reducer(state, action) {
         state.posts.push(action.payload);
       },
-      prepare(title, body) {
+      prepare({ title, body }) {
+        console.log(title, body);
         return {
           payload: {
             title,
